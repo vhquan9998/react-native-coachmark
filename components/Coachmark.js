@@ -12,6 +12,8 @@ export default class Coachmark extends Component {
     onShow: PropTypes.func,
     isAnchorReady: PropTypes.bool,
     renderArrow: PropTypes.func,
+    accessibilityLabel: PropTypes.string,
+    testID: PropTypes.string,
   };
 
   static defaultProps = {
@@ -139,7 +141,7 @@ export default class Coachmark extends Component {
   };
 
   render() {
-    const { contentContainerStyle } = this.props;
+    const { contentContainerStyle, accessibilityLabel, testID } = this.props;
     return (
       <React.Fragment>
         <View ref={this.view} style={contentContainerStyle} onLayout={this._measureLayout}>
@@ -158,7 +160,7 @@ export default class Coachmark extends Component {
               {this._renderCoachmark()}
             </React.Fragment>
           )}
-          <TouchableWithoutFeedback onPress={this.hide}>
+          <TouchableWithoutFeedback accessibilityLabel={accessibilityLabel} testID={testID} onPress={this.hide}>
             <View style={StyleSheet.absoluteFill} />
           </TouchableWithoutFeedback>
         </Modal>
