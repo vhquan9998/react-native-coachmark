@@ -1,16 +1,11 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import CoachmarkContent from './CoachmarkContent';
-import CoachmarkArrow, { K_POSITION_TOP, K_POSITION_BOTTOM } from './CoachmarkArrow';
+import CoachmarkArrow from './CoachmarkArrow';
+import { CoachmarkPosition, CoachmarkViewProps } from '../types';
 
-export default class CoachmarkView extends Component {
-  static propTypes = {
-    position: PropTypes.oneOf([K_POSITION_TOP, K_POSITION_BOTTOM]),
-    renderArrow: PropTypes.func,
-  };
-
-  static defaultProps = {
-    position: K_POSITION_TOP,
+export default class CoachmarkView extends Component<CoachmarkViewProps> {
+  static defaultProps: Pick<CoachmarkViewProps, 'position' | 'renderArrow'> = {
+    position: CoachmarkPosition.TOP,
     renderArrow: ({ x, position }) => <CoachmarkArrow x={x} position={position} />,
   };
 
@@ -19,13 +14,12 @@ export default class CoachmarkView extends Component {
   }
 
   renderCoachmarkArrow() {
-    const { renderArrow, ...rest } = this.props;
-
-    return renderArrow(rest);
+    const { renderArrow, x, position } = this.props;
+    return renderArrow({ x, position });
   }
 
   render() {
-    return this.props.position === K_POSITION_TOP ? (
+    return this.props.position === CoachmarkPosition.TOP ? (
       <React.Fragment>
         {this.renderCoachmarkArrow()}
         {this.renderCoachmarkContent()}

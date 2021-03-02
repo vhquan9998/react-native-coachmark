@@ -1,34 +1,42 @@
 import React, { Component } from 'react';
 import { View, Modal, StyleSheet, Dimensions, TouchableWithoutFeedback } from 'react-native';
-import PropTypes from 'prop-types';
 
 import CoachmarkView from './CoachmarkView';
-import { K_POSITION_BOTTOM, K_POSITION_TOP } from './CoachmarkArrow';
+import { CoachmarkProps, CoachmarkPosition } from '../types';
 
-export default class Coachmark extends Component {
-  static propTypes = {
-    autoShow: PropTypes.bool,
-    onHide: PropTypes.func,
-    onShow: PropTypes.func,
-    isAnchorReady: PropTypes.bool,
-    renderArrow: PropTypes.func,
-    accessibilityLabel: PropTypes.string,
-    testID: PropTypes.string,
-  };
+interface CoachmarkState {
+  visible: boolean,
+  childStyle: {
+    top: number,
+    left: number,
+    width: number,
+    height: number,
+  },
+  position?: CoachmarkPosition
+}
 
-  static defaultProps = {
+export default class Coachmark extends Component<CoachmarkProps, CoachmarkState> {
+  static defaultProps: CoachmarkProps = {
     autoShow: false,
     onHide: () => {}, // eslint-disable-line no-empty-function
     onShow: () => {}, // eslint-disable-line no-empty-function
     isAnchorReady: true,
+    message: ''
   };
+
+  view = React.createRef<View>();
+  interval?: ReturnType<typeof setInterval>;
 
   constructor(props) {
     super(props);
-    this.view = React.createRef();
     this.state = {
       visible: false,
-      childStyle: {},
+      childStyle: {
+        top: 0,
+        left: 0,
+        width: 0,
+        height: 0
+      },
     };
   }
 
@@ -70,7 +78,7 @@ export default class Coachmark extends Component {
               width,
               height,
             },
-            position: pageY > Dimensions.get('window').height - (pageY + height) ? 'bottom' : 'top',
+            position: pageY > Dimensions.get('window').height - (pageY + height) ? CoachmarkPosition.BOTTOM : CoachmarkPosition.TOP,
           });
         }
         resolve(isInViewPort);
@@ -79,11 +87,11 @@ export default class Coachmark extends Component {
   };
 
   _handleShow = () => {
-    this.props.onShow();
+    this.props.onShow!();
     this.setState({
       visible: true,
     });
-    return new Promise(resolve => {
+    return new Promise<void>(resolve => {
       this.interval = setInterval(() => {
         if (!this.state.visible) {
           this._stopWatching();
@@ -99,13 +107,14 @@ export default class Coachmark extends Component {
         visible: false,
       },
       () => {
-        this.props.onHide();
+        this.props.onHide!();
       }
     );
   };
 
   _stopWatching = () => {
-    this.interval = clearInterval(this.interval);
+    clearInterval(this.interval!);
+    this.interval = undefined;
   };
 
   _measureLayout = () => {
@@ -123,7 +132,7 @@ export default class Coachmark extends Component {
           position: 'absolute',
           left: 0,
           right: 0,
-          ...(this.state.position === K_POSITION_TOP
+          ...(this.state.position === CoachmarkPosition.TOP
             ? { top: this.state.childStyle.top + this.state.childStyle.height }
             : {
                 bottom: Dimensions.get('window').height - this.state.childStyle.top,
@@ -133,7 +142,7 @@ export default class Coachmark extends Component {
         <CoachmarkView
           x={this.state.childStyle.left + this.state.childStyle.width / 2}
           position={this.state.position}
-          message={this.props.message}
+          message={this.props.message!}
           renderArrow={this.props.renderArrow}
         />
       </View>
@@ -149,7 +158,7 @@ export default class Coachmark extends Component {
         </View>
         <Modal animationType="fade" transparent visible={this.state.visible}>
           <View style={styles.backdrop} />
-          {this.state.position === K_POSITION_BOTTOM ? (
+          {this.state.position === 'bottom' ? (
             <React.Fragment>
               {this._renderCoachmark()}
               {this._renderChildren()}
@@ -169,14 +178,12 @@ export default class Coachmark extends Component {
   }
 }
 
-const styles = {
-  backdrop: [
-    StyleSheet.absoluteFill,
-    {
-      backgroundColor: 'rgba(27,27,27,0.9)',
-    },
-  ],
+const styles = StyleSheet.create({
+  backdrop: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: 'rgba(27,27,27,0.9)',
+  },
   child: {
     position: 'absolute',
-  },
-};
+  }
+});
