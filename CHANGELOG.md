@@ -1,3 +1,12 @@
+# [0.1.0](https://github.com/traveloka/react-native-coachmark/compare/v0.1.0-alpha.1...v0.1.0) (2021-11-03)
+
+
+### Features
+
+* add renderContent to props ([#24](https://github.com/traveloka/react-native-coachmark/issues/24)) ([80266e0](https://github.com/traveloka/react-native-coachmark/commit/80266e0b597a09c36cefb873c952071a870507f5))
+
+
+
 # [0.1.0-alpha.1](https://github.com/traveloka/react-native-coachmark/compare/v0.1.0-alpha.0...v0.1.0-alpha.1) (2021-03-05)
 
 
