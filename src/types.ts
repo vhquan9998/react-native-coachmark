@@ -8,6 +8,7 @@ export interface CoachmarkProps {
   onShow?: () => void;
   isAnchorReady?: boolean;
   renderArrow?: CoachmarkViewProps['renderArrow'];
+  renderContent?: CoachmarkViewProps['renderContent'];
   accessibilityLabel?: string;
   testID?: string;
   contentContainerStyle?: StyleProp<ViewStyle>;
@@ -24,7 +25,7 @@ export interface CoachmarkArrowProps {
 }
 
 export interface CoachmarkContentProps {
-  message: string;
+  message?: string;
   buttonText?: string;
 }
 
@@ -36,5 +37,6 @@ export type CoachmarkViewProps = {
     x: number;
     position?: CoachmarkPosition;
   }) => React.ReactElement<CoachmarkArrowProps>;
+  renderContent?: () => React.ReactElement;
 } & CoachmarkContentProps &
   CoachmarkArrowProps;

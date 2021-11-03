@@ -10,7 +10,7 @@ export default class CoachmarkContent extends Component<CoachmarkContentProps> {
     return (
       <View style={styles.container}>
         <View style={styles.message}>
-          <Text style={styles.messageText}>{this.props.message}</Text>
+          <Text style={styles.messageText}>{this.props.message || ''}</Text>
         </View>
         <View style={styles.button}>
           <Text style={styles.buttonText}>{this.props.buttonText}</Text>

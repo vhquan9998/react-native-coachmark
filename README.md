@@ -40,6 +40,7 @@ export default function AwesomeScreen() {
 ```
 
 ## Example
+
 [![preview](https://i.ibb.co/n3VpkY4/Screen-Shot-2018-12-04-at-13-53-26.png)](https://snack.expo.io/@jekiwijaya/react-native-coachmark)
 
 [View on Expo!](https://snack.expo.io/@jekiwijaya/react-native-coachmark)
@@ -49,20 +50,23 @@ export default function AwesomeScreen() {
 ### - Coachmark
 
 #### Importing
-```javascript
-var Coachmark = require('react-native-coachmark').Coachmark;  // ES5
 
-import { Coachmark } from 'react-native-coachmark';  // ES6
+```javascript
+var Coachmark = require('react-native-coachmark').Coachmark; // ES5
+
+import { Coachmark } from 'react-native-coachmark'; // ES6
 ```
 
 #### Props
-| Property      | Type     | Default Value | Description                                    |
-| ------------- | -------- | ------------- | ---------------------------------------------- |
-| message       | string   | none          | required                                       |
-| autoShow      | boolean  | none          | to show the coachmark when mounting            |
-| onShow        | function | none          | will be called when coachmark is showing       |
-| onHide        | function | none          | will be called when coachmark is hidden        |
-| isAnchorReady | boolean  | true          | a value to force coachmark not being shown yet |
+
+| Property      | Type               | Default Value | Description                                                 |
+| ------------- | ------------------ | ------------- | ----------------------------------------------------------- |
+| message       | string             | none          | optional                                                    |
+| autoShow      | boolean            | none          | to show the coachmark when mounting                         |
+| onShow        | function           | none          | will be called when coachmark is showing                    |
+| onHide        | function           | none          | will be called when coachmark is hidden                     |
+| isAnchorReady | boolean            | true          | a value to force coachmark not being shown yet              |
+| renderContent | () => ReactElement | none          | pass a custom coachmark content to override the default one |
 
 #### Methods
 
@@ -71,14 +75,15 @@ import { Coachmark } from 'react-native-coachmark';  // ES6
 | `show() => Promise` | a function to trigger show the coachmark |
 
 ### Roadmap
+
 - [ ] Auto load and save in AsyncStorage
 - [x] Show coachmark only when in view port
 - [ ] Custom render arrow and content
-
 
 ## Contributing
 
 We'd to have your helping hand on this package! Feel free to PR's, add issues or give feedback!
 
 ## Credits
+
 Written by [Jacky Wijaya](https://www.linkedin.com/in/jacky-wijaya-125b90b6/) (jekiwijaya) at Traveloka.
