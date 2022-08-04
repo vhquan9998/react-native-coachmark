@@ -150,6 +150,7 @@ export default class Coachmark extends Component<CoachmarkProps, CoachmarkState>
           message={this.props.message!}
           renderArrow={this.props.renderArrow}
           renderContent={this.props.renderContent}
+          arrowColor={this.props.arrowColor}
         />
       </View>
     );
@@ -163,7 +164,12 @@ export default class Coachmark extends Component<CoachmarkProps, CoachmarkState>
           {React.Children.only(this.props.children)}
         </View>
         <Modal animationType="fade" transparent visible={this.state.visible}>
-          <View style={styles.backdrop} />
+          <View
+            style={{
+              ...styles.backdrop,
+              ...(this.props.backdropColor && { backgroundColor: this.props.backdropColor }),
+            }}
+          />
           {this.state.position === 'bottom' ? (
             <React.Fragment>
               {this._renderCoachmark()}

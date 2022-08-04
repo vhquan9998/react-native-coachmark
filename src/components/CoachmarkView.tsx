@@ -6,7 +6,7 @@ import { CoachmarkPosition, CoachmarkViewProps } from '../types';
 export default class CoachmarkView extends Component<CoachmarkViewProps> {
   static defaultProps: Pick<CoachmarkViewProps, 'position' | 'renderArrow'> = {
     position: CoachmarkPosition.TOP,
-    renderArrow: ({ x, position }) => <CoachmarkArrow x={x} position={position} />,
+    renderArrow: ({ x, position, arrowColor }) => <CoachmarkArrow x={x} position={position} arrowColor={arrowColor} />,
   };
 
   renderCoachmarkContent() {
@@ -17,8 +17,8 @@ export default class CoachmarkView extends Component<CoachmarkViewProps> {
   }
 
   renderCoachmarkArrow() {
-    const { renderArrow, x, position } = this.props;
-    return renderArrow({ x, position });
+    const { renderArrow, x, position, arrowColor } = this.props;
+    return renderArrow({ x, position, arrowColor });
   }
 
   render() {

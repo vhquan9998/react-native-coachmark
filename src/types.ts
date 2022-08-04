@@ -12,6 +12,8 @@ export interface CoachmarkProps {
   accessibilityLabel?: string;
   testID?: string;
   contentContainerStyle?: StyleProp<ViewStyle>;
+  backdropColor?: string;
+  arrowColor?: string;
 }
 
 export enum CoachmarkPosition {
@@ -21,6 +23,7 @@ export enum CoachmarkPosition {
 
 export interface CoachmarkArrowProps {
   position?: CoachmarkPosition;
+  arrowColor?: string;
   x: number;
 }
 
@@ -33,10 +36,13 @@ export type CoachmarkViewProps = {
   renderArrow: ({
     x,
     position,
+    arrowColor,
   }: {
     x: number;
     position?: CoachmarkPosition;
+    arrowColor?: string;
   }) => React.ReactElement<CoachmarkArrowProps>;
   renderContent?: () => React.ReactElement;
 } & CoachmarkContentProps &
-  CoachmarkArrowProps;
+  CoachmarkArrowProps &
+  Pick<CoachmarkProps, 'arrowColor'>;

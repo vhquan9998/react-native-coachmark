@@ -9,10 +9,10 @@ export default class CoachmarkArrow extends Component<CoachmarkArrowProps> {
 
   getStyles = (): ViewStyle => {
     if (this.props.position == CoachmarkPosition.TOP) {
-      return { borderBottomColor: '#FFF', borderBottomWidth: 10, marginTop: 12 };
+      return { borderBottomColor: this.props.arrowColor || '#FFF', borderBottomWidth: 10, marginTop: 12 };
     }
     if (this.props.position == CoachmarkPosition.BOTTOM) {
-      return { borderTopColor: '#FFF', borderTopWidth: 10, marginBottom: 12 };
+      return { borderTopColor: this.props.arrowColor || '#FFF', borderTopWidth: 10, marginBottom: 12 };
     }
     return {};
   };
