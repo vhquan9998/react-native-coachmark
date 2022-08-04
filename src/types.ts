@@ -42,7 +42,7 @@ export type CoachmarkViewProps = {
     position?: CoachmarkPosition;
     arrowColor?: string;
   }) => React.ReactElement<CoachmarkArrowProps>;
-  renderContent?: () => React.ReactElement;
+  renderContent?: ({ x }: { x: number }) => React.ReactElement;
 } & CoachmarkContentProps &
   CoachmarkArrowProps &
   Pick<CoachmarkProps, 'arrowColor'>;

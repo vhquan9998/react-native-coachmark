@@ -11,7 +11,8 @@ export default class CoachmarkView extends Component<CoachmarkViewProps> {
 
   renderCoachmarkContent() {
     if (this.props.renderContent) {
-      return this.props.renderContent();
+      const { x } = this.props;
+      return this.props.renderContent({ x });
     }
     return <CoachmarkContent message={this.props.message} />;
   }
